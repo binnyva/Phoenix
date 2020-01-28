@@ -200,12 +200,12 @@ class BatchTest extends TestCase
 
     public function testMentorAssignment()
     {
-        if ($this->only_priority_tests){
-            $this->markTestSkipped("Running only priority tests.");
-        }
-        if (!$this->write_to_db) {
-            $this->markTestSkipped("Skipping as this test writes to the Database.");
-        }
+        // if ($this->only_priority_tests){
+        //     $this->markTestSkipped("Running only priority tests.");
+        // }
+        // if (!$this->write_to_db) {
+        //     $this->markTestSkipped("Skipping as this test writes to the Database.");
+        // }
 
         $batch_id = 2610;
         $non_mentor_user_id = 142776;
@@ -219,7 +219,7 @@ class BatchTest extends TestCase
         $this->response->assertStatus(200);
 
         $found_mentor_count = 0;
-        $mentors = app('db')->table('UserBatch')->select('user_id')->where('batch_id', batch_id)->where('role','mentor')->get();
+        $mentors = app('db')->table('UserBatch')->select('user_id')->where('batch_id', $batch_id)->where('role','mentor')->get();
         foreach ($mentors as $mentor) {
             if (in_array($mentor->user_id, $mentor_ids)) {
                 $found_mentor_count++;
